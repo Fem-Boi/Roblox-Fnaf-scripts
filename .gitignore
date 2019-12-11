@@ -1,18 +1,37 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
 
-# Other files and folders
-.settings/
+--Script made by FurFem
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+db = false
+door = false
+script.Parent.LightButton.ClickDetector.MouseClick:connect(function()
+	script.Parent.LightButton.Sound:play()
+	if script.Parent.Light.PointLight.Brightness == 1 then
+		script.Parent.Light.PointLight.Brightness = 0
+		script.Parent.Light.Sound.Volume = 0
+	elseif script.Parent.Light.PointLight.Brightness == 0 then
+		script.Parent.Light.PointLight.Brightness = 1
+		script.Parent.Light.Sound.Volume = 1
+	end
+end)
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+script.Parent.DoorButton.ClickDetector.MouseClick:connect(function()
+	if not db then db = true
+		if not door then door = true
+			script.Parent.Door.Sound:play()
+			for i=0,15 do
+				script.Parent.Door.CFrame = script.Parent.Door.CFrame - Vector3.new(0,0.8,0)
+				wait()
+			end
+			script.Parent.Door.CFrame = script.Parent.Door.CFrame - Vector3.new(0,0.2,0)
+			db = false
+		elseif door then door = false
+			script.Parent.Door.Sound:play()
+			for i=0,15 do
+				script.Parent.Door.CFrame = script.Parent.Door.CFrame + Vector3.new(0,0.8,0)
+				wait()
+			end
+			script.Parent.Door.CFrame = script.Parent.Door.CFrame + Vector3.new(0,0.2,0)
+			db = false
+		end
+	end
+end)
